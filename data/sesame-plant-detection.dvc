@@ -1,0 +1,6 @@
+outs:
+- md5: 5eca1507ab05adb71117d9d360988ffd.dir
+  size: 109712222
+  nfiles: 1173
+  hash: md5
+  path: sesame-plant-detection
