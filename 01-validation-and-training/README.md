@@ -12,19 +12,6 @@ In production environments, training on unvalidated data wastes compute resource
 - Baseline training and inference using Ultralytics YOLO 
  
 
-
-
-## Folder Structure
-01-validation-training/
-├── validation.ipynb           # Dataset integrity checks and reporting
-├── training.ipynb             # Baseline model training and sample inference
-├── requirements.txt           # Exact dependencies pinned for this stage
-├── dataset_summary.csv        # Generated validation report (CSV)
-└── README.md                  
-
-
-Training outputs (`runs/`) are git-ignored.
-
 ## Validation Logic
 
 The validation notebook performs three checks:
@@ -67,3 +54,4 @@ cd 01-validation-training
 pip install -r requirements.txt
 # Run validation.ipynb first
 # Then training.ipynb
+
