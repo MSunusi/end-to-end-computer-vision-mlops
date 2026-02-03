@@ -1,36 +1,69 @@
-# 🚀 End-to-End Computer Vision MLOps  
-## Stage 01 — Data Validation & Model Training
+# Stage 01: Dataset Validation & Baseline Training
 
-This project is a **hands-on, experiment-driven journey** into building a **production-ready Computer Vision system with MLOps best practices**.
+This stage establishes the minimum reliable foundation for any production-grade computer vision pipeline: a verified dataset and a reproducible baseline model.
 
-Instead of starting with heavy theory, we begin with **real experiments**, clean structure, and reproducible workflows — the way it’s done in industry.
+In production environments, training on unvalidated data wastes compute resources and masks downstream problems. This stage enforces dataset integrity before any modeling effort begins and provides a simple, repeatable baseline that confirms the full data-to-prediction path functions correctly.
 
----
+## What This Stage Covers
 
-## 🔍 What This Stage Covers (Stage 01)
+- Systematic validation of YOLO-format dataset (images + labels)
+- Detection of structural defects: missing label files, unreadable/corrupted images
+- Basic dataset statistics: image counts per split, class distribution
+- Baseline training and inference using Ultralytics YOLO 
+ 
 
-In this first stage, we focus on **building a solid foundation**:
 
-### ✅ 1. Data Validation
-Before training any model, we ensure:
-- Dataset paths are correct
-- Images and labels are consistent
-- Classes are properly defined
-- Dataset structure follows expected standards
 
-📌 *Why this matters:*  
-Bad data = bad models. Validation saves time and compute.
+## Folder Structure
+01-validation-training/
+├── validation.ipynb           # Dataset integrity checks and reporting
+├── training.ipynb             # Baseline model training and sample inference
+├── requirements.txt           # Exact dependencies pinned for this stage
+├── dataset_summary.csv        # Generated validation report (CSV)
+└── README.md                  
 
----
 
-### 🧠 2. Model Training
-Once data is validated, we:
-- Load the dataset
-- Configure training parameters
-- Train a baseline Computer Vision model
-- Track metrics for future comparison
+Training outputs (`runs/`) are git-ignored.
 
-Short example (simplified):
+## Validation Logic
 
-```python
-pip install requirements.txt
+The validation notebook performs three checks:
+
+1. **Missing labels**  
+   For every `.jpg` in the images directory, verify existence of corresponding `.txt` file with identical stem.
+
+2. **Corrupted / unreadable images**  
+   Attempt to load each image with OpenCV (`cv2.imread`). Flag files that return `None` or zero-sized arrays.
+
+3. **Class distribution**  
+   Parse every label file, extract class IDs (first token per line), and tally occurrences per split.
+
+Results are printed in a structured report and saved as `dataset_summary.csv` containing:
+
+- Image counts (train / valid)
+- Number of missing labels per split
+- Number of corrupted images per split
+- Class distribution (train / valid)
+- Total unique classes detected
+
+These metrics serve as a gate: proceed to training only when validation issues are resolved or explicitly accepted.
+
+## Baseline Training 
+
+The training notebook trains a single Ultralytics YOLO model from a pretrained checkpoint on the provided `data.yaml`.
+
+**Purpose of the baseline**  
+- Confirm the dataset is loadable by the training framework
+- Verify label format compatibility
+- Produce initial predictions to visually sanity-check detections
+
+ 
+
+
+clone and run on your enviroment:
+
+```bash
+cd 01-validation-training
+pip install -r requirements.txt
+# Run validation.ipynb first
+# Then training.ipynb
