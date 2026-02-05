@@ -34,9 +34,24 @@ end-to-end-computer-vision-mlops/
 │   ├── dataset_summary.csv
 │   └── README.md
 │
-├── 02-experiment-tracking/        # MLflow (planned)
+├── 02-experiment-tracking/        # MLflow-based experiment tracking (completed)
+│   ├── experiment_track_on_cpu.ipynb
+│   ├── experiment_tracking_on_colab.ipynb
+│   └── README.md
+│
 ├── 03-orchestration/              # Airflow (planned)
 ├── 04-serving/                    # Docker + API (planned)
 ├── 05-ci-cd-monitoring/           # CI/CD + monitoring (planned)
 │
 └── README.md
+
+````
+
+## 🖥️ Development Environment
+
+Operating System: Ubuntu 24.04
+
+Python Version: Python 3.12 
+
+## Note
+this repo contain only the technical implemenation of mlops. to learn deeper for mlops follow this: https://github.com/DataTalksClub/mlops-zoomcamp.git
